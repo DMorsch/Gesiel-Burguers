@@ -1,14 +1,18 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Aux from '../../../hoc/Auxiliary';
 import Botao from '../../UI/Botao/Botao'
 
-const orderSummary = (props) => {
-    const ingredientSummary = Object.keys(props.ingredientes).map(
-        igKey => {
-            return <li key={igKey}> <span style={{textTransform: 'capitalize'}}>{igKey}: {props.ingredientes[igKey]}</span> </li>
-        }
-    );
-
+class OrderSummary extends Component {
+    componentWillUpdate(){
+        console.log('OrderSummary render');
+    }
+    
+    render(){
+        const ingredientSummary = Object.keys(this.props.ingredientes).map(
+            igKey => {
+                return <li key={igKey}> <span style={{textTransform: 'capitalize'}}>{igKey}: {this.props.ingredientes[igKey]}</span> </li>
+            }
+        );
     return(
     <Aux> 
         <h3> Your order </h3>
@@ -16,12 +20,13 @@ const orderSummary = (props) => {
         <ul> 
             {ingredientSummary}
         </ul>
-        <p> Total price: {props.price.toFixed(2)} </p>
+        <p> Total price: {this.props.price.toFixed(2)} </p>
         <p> Continue to checkout?</p>
-        <Botao btnType="Danger" clicked={props.purchaseCanceled}> CANCEL </Botao>
-        <Botao btnType="Success" clicked={props.purchaseContinued}> CONTINUE </Botao>
+        <Botao btnType="Danger" clicked={this.props.purchaseCanceled}> CANCEL </Botao>
+        <Botao btnType="Success" clicked={this.props.purchaseContinued}> CONTINUE </Botao>
     </Aux>
     );
+ }
 };
 
-export default orderSummary;
+export default OrderSummary;
